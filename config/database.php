@@ -1,20 +1,23 @@
-<?php
-class Database{
-    // specify your own database credentials
-    private $host = "localhost";
-    private $db_name = "api_db";
-    private $username = "root";
-    private $password = "";
-    public $conn;
-    // get the database connection
-    public function getConnection(){
-        $this->conn = null;
-        try{
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->exec("set names utf8");
-        }catch(PDOException $exception){
-            echo "Connection error: " . $exception->getMessage();
-        }
-        return $this->conn;
-    }
-}
+<?php  
+	class Database {
+		private static  $host = 'localhost';
+		private  static $db_name = 'api_db';
+		private  static $username = 'root';
+		private  static $password = '';
+		private  $conn;
+		// get the database connection
+		public function getConnection() {
+			$this->conn = null;
+			$this->conn = mysqli_connect(self::$host,self::$username,self::$password,self::$db_name);
+			// Check connection
+			if (mysqli_connect_errno())	{
+			  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+			}else {
+				echo "Success";
+			}
+			return $this->conn;
+		}
+	}
+	$hi = new Database;
+	$hi -> getConnection();
+?>
