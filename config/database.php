@@ -18,3 +18,6 @@ class Database{
         return $this->conn;
     }
 }
+// Sử dụng PDO: http://hoclaptrinhweb.org/lap-trinh/hoc-php/255-bai-11-thao-tac-voi-csdl-trong-php-thong-qua-pdo.html
+// https://viblo.asia/p/pdo-trong-php-khai-niem-va-nhung-thao-tac-co-ban-57rVRq59R4bP
+?>
