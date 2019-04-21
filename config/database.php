@@ -18,6 +18,4 @@
 			return $this->conn;
 		}
 	}
-	$hi = new Database;
-	$hi -> getConnection();
 ?>
