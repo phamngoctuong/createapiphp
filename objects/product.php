@@ -1,34 +1,32 @@
-<?php  
-	class Product {
-		private $conn;
-		private $table_name = 'products';
-		public $id;
-		public $name;
-		public $description;
-		public $price;
-		public $category_id;
-		public $category_name;
-		public $created;
-		public function __construct($db) {
-			$this->conn = $db;
-		}
-		public function read() {
-			$read = array();
-			$query = "SELECT c.name, p.id, p.name, p.description, p.price, p.category_id, p.created FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.created DESC";
-			$result = mysqli_query($this->conn,$query);
-			while ($row = mysqli_fetch_array($result)) {
-			 	$read[] = $row;    
-			}
-			return $read;
-		}
+<?php
+class Product{
+    // database connection and table name
+    private $conn;
+    private $table_name = "products";
+    // object properties
+    public $id;
+    public $name;
+    public $description;
+    public $price;
+    public $category_id;
+    public $category_name;
+    public $created;
+    // constructor with $db as database connection
+    public function __construct($db){
+        $this->conn = $db;
+    }
+    // read products
+	function read(){
+	 
+	    // select all query
+	    $query = "SELECT c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
+	    FROM " . $this->table_name . " p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.created DESC";
+	    // prepare query statement
+	    $stmt = $this->conn->prepare($query);
+	 
+	    // execute query
+	    $stmt->execute();
+	 
+	    return $stmt;
 	}
-	// get database connection
-	include_once '../config/database.php';
-	// instantiate product object
-	$database = new Database();
-	$db = $database->getConnection();
-	$product = new Product($db);
-	echo '<pre>';
-		print_r($product -> read());
-	echo '</pre>';
-?>
+}
